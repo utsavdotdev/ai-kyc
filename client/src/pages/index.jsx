@@ -1,1 +1,5 @@
 export {default as Hero} from './Hero'
+export {default as Dashboard} from './Dashboard'
+export {default as Forms} from './Forms'
+export {default as Setting} from './Setting'
+export {default as UserForm} from './UserForm'

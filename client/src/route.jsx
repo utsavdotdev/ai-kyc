@@ -2,9 +2,7 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 import Nav from "./layouts/Nav";
 import NavFoot from "./layouts/NavFoot";
-import {
-  Hero,
-} from "./pages";
+import { Hero,Dashboard,Setting,Forms,UserForm } from "./pages";
 
 export default function Router() {
   return useRoutes([
@@ -13,12 +11,19 @@ export default function Router() {
       element: <NavFoot />,
       children: [{ path: "", element: <Hero /> }],
     },
-   
+
     {
       path: "/",
-      element: <Nav/>,
+      element: <Nav />,
       children: [
+        { path: "/dashboard", element: <Dashboard/> },
+        { path: "/form/:id", element: <Forms />},
+        { path: "/setting", element: <Setting />},
       ],
+    },
+    {
+      path: "/userform/:id",
+      element: <UserForm />,
     },
   ]);
 }
