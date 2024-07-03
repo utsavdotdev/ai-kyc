@@ -9,8 +9,8 @@ const Hero = () => {
         <main>
           <section className="container mx-auto py-24 px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="space-y-6 max-w-xl">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Ease the Process of KYC with Artificial Intellegence.
+              <h1 className="text-4xl md:text-5xl font-bold ">
+                Simplify KYC with AI.
               </h1>
               <p className="text-lg text-muted-foreground">
                 Easily verify your customers' identities with our AI-powered KYC
