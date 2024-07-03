@@ -34,63 +34,60 @@ const Hero = () => {
                 Key Features
               </div>
               <h2 className="text-4xl font-bold tracking-tight">
-                Unlock the Power of the Web
+                User firendly KYC process with KYC master
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Our platform empowers you to build, deploy, and scale the most
-                innovative web experiences with ease.
+                Our platform empowers you to verify your users easily with AI
+                powered verification system.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
               <Card>
                 <CardContent className="flex flex-col gap-4 py-3">
                   <LayersIcon className="h-8 w-8 text-primary" />
-                  <h3 className="text-xl font-semibold">
-                    Scalable Infrastructure
-                  </h3>
+                  <h3 className="text-xl font-semibold">Secure Process</h3>
                   <p className="text-muted-foreground">
-                    Our platform scales dynamically with your traffic, ensuring
-                    your site is always fast and reliable.
+                    All the task is done by meachine learning model which is
+                    more secure.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="flex flex-col gap-4 py-3">
                   <CodeIcon className="h-8 w-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Developer Tools</h3>
+                  <h3 className="text-xl font-semibold">Fast</h3>
                   <p className="text-muted-foreground">
-                    Empower your team with a suite of developer tools to
-                    streamline your workflow.
+                    It process all the required document in very less amount of
+                    time due to which it is a fast process.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="flex flex-col gap-4 py-3">
                   <LockIcon className="h-8 w-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Secure by Design</h3>
+                  <h3 className="text-xl font-semibold">Cost Effective</h3>
                   <p className="text-muted-foreground">
-                    Our platform is built with security in mind, ensuring your
-                    data is protected at every level.
+                    It doesnot require any human involvation, it saves cost in
+                    human resources.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="flex flex-col gap-4 py-3">
                   <BoltIcon className="h-8 w-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Blazing Fast</h3>
+                  <h3 className="text-xl font-semibold">Real-Time Process</h3>
                   <p className="text-muted-foreground">
-                    Experience lightning-fast page loads and seamless user
-                    interactions with our global edge network.
+                    It proces the usr face abd verify the documents in the
+                    realtime.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="flex flex-col gap-4 py-3">
                   <GaugeIcon className="h-8 w-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Real-Time Insights</h3>
+                  <h3 className="text-xl font-semibold">User Friendly</h3>
                   <p className="text-muted-foreground">
-                    Gain deep, real-time insights into your application's
-                    performance and user behavior.
+                    KYC master is user friendly and easy to use.
                   </p>
                 </CardContent>
               </Card>
@@ -110,7 +107,7 @@ const Hero = () => {
         <footer className="bg-[#141414] py-8 px-4 md:px-6">
           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              &copy; 2024 Ai-Kyc. All rights reserved.
+              &copy; 2024 kyc master. All rights reserved.
             </p>
             <nav className="flex items-center gap-6">
               <div className="text-sm font-medium hover:text-primary">

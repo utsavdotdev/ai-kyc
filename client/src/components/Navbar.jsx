@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="w-full sm:w-[90%] rounded-lg h-16 border-[2px] flex items-center justify-between px-2 sm:px-4 py-2">
           <div className="h-full flex justify-center items-center">
             <p className="text-3xl text-text font-semibold font-pops">
-              Ai<span className="text-highlight">-Kyc</span>
+              KYC<span className="text-highlight"> Master</span>
             </p>
           </div>
           <div className="h-full flex gap-2 justify-center items-center sm:gap-5">
