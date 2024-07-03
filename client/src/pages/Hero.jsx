@@ -53,8 +53,9 @@ const Hero = () => {
               Simplify KYC with AI.
             </h1>
             <p className="text-lg text-muted-foreground">
-              Easily verify your customers' identities with our AI-powered KYC
-              solution. Get started in minutes with our simple API integration.
+              Effortlessly verify your customers' identities with our AI-driven
+              KYC solution. Start in minutes with our straightforward API
+              integration.
             </p>
             <div className="flex gap-4">
               <Button>Get Started</Button>
