@@ -91,3 +91,8 @@
   background: #404040;
   border-radius: 5px;
 }
+/* 
+.hero_main {
+  height: calc(100vh - 100px);
+  justify-content: center;
+} */

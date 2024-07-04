@@ -97,7 +97,16 @@ const Hero = () => {
       <footer className="bg-[#141414] py-8 px-4 md:px-6">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            &copy; 2024 KYC master. All rights reserved.
+            &copy; Made with 💖 by
+            <a target="_blank" href="https://twitter.com/rajeshkhadka200">
+              {" "}
+              Rajesh{" "}
+            </a>
+            &{" "}
+            <a target="_blank" href="https://twitter.com/utsavdotdev">
+              {" "}
+              Utsav{" "}
+            </a>
           </p>
           <nav className="flex items-center gap-6">
             <div className="text-sm font-medium hover:text-primary">
