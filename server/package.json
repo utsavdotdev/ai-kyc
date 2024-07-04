@@ -2,12 +2,14 @@
   "name": "ai-kyc",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "author": "rajesh and utsav",
   "license": "MIT",
+  "scripts": {
+    "start": "node --watch --env-file=.env index.js"
+  },
   "dependencies": {
-    "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.4.4",
-    "nodemon": "^3.1.4"
+    "mongoose": "^8.4.4"
   }
 }
