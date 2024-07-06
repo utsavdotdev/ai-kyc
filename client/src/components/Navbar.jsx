@@ -1,5 +1,5 @@
 import React from "react";
-import { Github, LogOut } from "lucide-react";
+import YourSvg from "/assets/google.svg";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
@@ -17,7 +17,8 @@ const Navbar = () => {
             {/* {!session ? ( */}
             <>
               <Button size={"sm"} onClick={loginWithGithub}>
-                <Github className="mr-2 h-4 w-4" />{" "}
+                <img src={YourSvg} alt="Github" className="h-5 w-5 mr-1" />
+
                 <p className="sm:after:content-[' with Github'] font-pops">
                   Login
                 </p>
