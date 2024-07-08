@@ -1,10 +1,11 @@
+import Forms from "../components/Forms";
 import { Button } from "@/components/ui/button";
 import React from "react";
 
 const Dashboard = () => {
   return (
     <>
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Forms</h1>
       </div>
       <div
@@ -21,7 +22,9 @@ const Dashboard = () => {
           </p>
           <Button className="mt-4">Create Forms</Button>
         </div>
-      </div>
+      </div> */}
+
+      <Forms />
     </>
   );
 };
