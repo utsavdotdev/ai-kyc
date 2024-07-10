@@ -3,25 +3,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 .step-indicator {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .step {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: #ddd;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 5px;
   font-weight: bold;
   position: relative;
   z-index: 1;
@@ -33,7 +31,7 @@
 }
 
 .step-connector {
-  width: 50px;
+  width: 80px;
   height: 2px;
   background-color: #ddd;
   margin: 0 -5px;
@@ -50,14 +48,6 @@
   background-color: #007bff;
 }
 
-.camera-container {
-  width: 50px;
-  height: 50px;
-  margin: 20px auto;
-  border: 1px solid #ddd;
-  overflow: hidden;
-}
-
 /* @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
@@ -71,3 +61,34 @@
     margin-bottom: 10px;
   }
 } */
+.form_container {
+  /* max-width: 500px; */
+}
+
+.date_picker {
+  background-color: #0a0a0a;
+  padding: 10px 10px;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  outline: #262626;
+  color: #a3a3a3;
+  color-scheme: dark;
+}
+
+.form_heading {
+  font-weight: 500;
+  font-size: 20px;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.dummy_box {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #262626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a3a3a3;
+}

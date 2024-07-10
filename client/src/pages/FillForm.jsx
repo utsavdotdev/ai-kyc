@@ -9,10 +9,11 @@ import DocumentUpload from "../components/DocumentUpload";
 import Review from "../components/Review";
 
 const FillForm = () => {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    email: "",
     dob: "",
     phone: "",
     address: "",
@@ -54,6 +55,7 @@ const FillForm = () => {
         return (
           <CameraAccess
             formData={formData}
+            handleChange={handleChange}
             handleFileChange={handleFileChange}
             nextStep={nextStep}
             prevStep={prevStep}
