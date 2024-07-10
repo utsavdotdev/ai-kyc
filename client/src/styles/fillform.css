@@ -1,0 +1,73 @@
+/* App.css */
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+}
+
+.step.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.step-connector {
+  width: 50px;
+  height: 2px;
+  background-color: #ddd;
+  margin: 0 -5px;
+}
+
+.step.active + .step-connector,
+.step.active + .step-connector + .step.active + .step-connector,
+.step.active
+  + .step-connector
+  + .step.active
+  + .step-connector
+  + .step.active
+  + .step-connector {
+  background-color: #007bff;
+}
+
+.camera-container {
+  width: 50px;
+  height: 50px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+/* @media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="file"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+} */
