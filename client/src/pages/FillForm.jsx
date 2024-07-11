@@ -21,21 +21,16 @@ const FillForm = () => {
     photo: null,
     passport: null,
   });
-
+  console.log(formData);
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
+  // only for text type input
   const handleChange = (input) => (e) => {
     setFormData({ ...formData, [input]: e.target.value });
   };
 
-  const handleFileChange = (fieldName) => (file) => {
-    const newFormData = { ...formData, [fieldName]: file };
-    if (fieldName === "passport") {
-      newFormData.passport = URL.createObjectURL(file); // Generate the URL
-    }
-    setFormData(newFormData);
-  };
+  const handleFileChange = (fieldName) => (file) => {};
 
   const renderStep = () => {
     switch (step) {
@@ -59,8 +54,8 @@ const FillForm = () => {
       case 3:
         return (
           <CameraAccess
+            setFormData={setFormData}
             formData={formData}
-            handleChange={handleChange}
             handleFileChange={handleFileChange}
             nextStep={nextStep}
             prevStep={prevStep}
@@ -69,6 +64,7 @@ const FillForm = () => {
       case 4:
         return (
           <DocumentUpload
+            setFormData={setFormData}
             formData={formData}
             handleFileChange={handleFileChange}
             nextStep={nextStep}
@@ -89,7 +85,13 @@ const FillForm = () => {
   };
   return (
     <>
-      <StepIndicator currentStep={step} />
+      <div
+        style={{
+          marginTop: "100px",
+        }}
+      >
+        <StepIndicator currentStep={step} />
+      </div>
       <div className="app">{renderStep()}</div>
     </>
   );

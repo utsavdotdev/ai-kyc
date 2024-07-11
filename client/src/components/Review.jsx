@@ -96,8 +96,8 @@ const Review = ({ formData, prevStep }) => {
           src={formData.photo}
           alt="photo"
           style={{
-            width: "100%",
-            height: "auto",
+            width: "200px",
+            height: "200px",
           }}
         />
         <Label htmlFor="passport">Passport</Label>
@@ -113,6 +113,7 @@ const Review = ({ formData, prevStep }) => {
         <div
           style={{
             marginTop: "30px",
+            paddingBottom: "30px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",

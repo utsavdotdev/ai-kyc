@@ -28,12 +28,12 @@ export default function Router() {
         { path: "/form/:id", element: <AllUser /> },
         { path: "/setting", element: <Setting /> },
         { path: "/analytics", element: <Analytics /> },
-        { path: "/fillform", element: <FillForm /> },
+        // { path: "/fillform", element: <FillForm /> },
       ],
     },
     {
       path: "/userform/:id",
-      element: <UserForm />,
+      element: <FillForm />,
     },
   ]);
 }
