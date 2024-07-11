@@ -148,7 +148,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
                     width: "180px",
                     height: "180px",
                     borderRadius: "50%",
-                    border: "2px solid white",
+                    border: "2px solid green",
                     boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.5)",
                   }}
                 />
