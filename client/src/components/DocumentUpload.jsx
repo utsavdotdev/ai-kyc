@@ -30,7 +30,7 @@ const DocumentUpload = ({ formData, setFormData, nextStep, prevStep }) => {
   return (
     <>
       <div className="form_container grid w-full max-w-md items-center gap-3">
-        <div className="ddd">
+        <div className="main_container">
           <span className="form_heading ">Document Verification</span>
           {formData.passport && (
             <Button

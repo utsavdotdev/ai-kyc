@@ -7,6 +7,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
   const [stream, setStream] = useState(null);
   const [error, setError] = useState(null);
   const [capturedImage, setCapturedImage] = useState(formData.photo || null);
+  const [cameraReady, setCameraReady] = useState(false);
 
   useEffect(() => {
     if (!capturedImage && !stream) {
@@ -25,6 +26,9 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
       setStream(newStream);
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
+        videoRef.current.onloadedmetadata = () => {
+          setCameraReady(true);
+        };
       }
     } catch (err) {
       console.error("Error accessing camera:", err);
@@ -81,12 +85,14 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
       setStream(null);
+      setCameraReady(false);
     }
   };
 
   const retakePhoto = () => {
     setCapturedImage(null);
     setFormData({ ...formData, photo: null });
+    setCameraReady(false);
   };
 
   const handlePrev = () => {
@@ -165,6 +171,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
         {!capturedImage ? (
           <button
             onClick={capturePhoto}
+            disabled={!cameraReady}
             style={{
               display: "block",
               margin: "10px auto",
@@ -173,7 +180,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
               border: "none",
               padding: "10px 20px",
               borderRadius: "5px",
-              cursor: "pointer",
+              cursor: !cameraReady ? "not-allowed" : "pointer",
             }}
           >
             Capture
