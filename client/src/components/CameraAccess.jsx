@@ -16,7 +16,7 @@ const CameraAccess = ({
   const [error, setError] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   console.log(capturedImage);
-  console.log(stream);
+  console.log(formData);
 
   useEffect(() => {
     if (!capturedImage) {
@@ -53,6 +53,7 @@ const CameraAccess = ({
         setCapturedImage(URL.createObjectURL(blob));
         stopCamera();
       });
+      formData.photo = capturedImage;
     }
   };
 
@@ -66,6 +67,18 @@ const CameraAccess = ({
   const retakePhoto = () => {
     setCapturedImage(null);
     // startCamera will be called by the useEffect hook
+  };
+
+  const handlePrev = () => {
+    stopCamera();
+    prevStep();
+  };
+
+  const handleNext = () => {
+    if (capturePhoto === null) {
+      return;
+    }
+    nextStep();
   };
 
   return (
@@ -146,16 +159,18 @@ const CameraAccess = ({
           }}
           className="controller"
         >
-          <Button variant="secondary" onClick={prevStep}>
+          <Button variant="secondary" onClick={handlePrev}>
             Back
           </Button>
           <Button
-            style={{
-              cursor:
-                !capturedImage || error !== null ? "not-allowed" : "pointer",
-            }}
+            style={
+              {
+                // cursor:
+                //   !capturedImage || error !== null ? "not-allowed" : "pointer",
+              }
+            }
             disabled={!capturedImage || error !== null ? true : false}
-            onClick={nextStep}
+            onClick={handleNext}
           >
             Next
           </Button>

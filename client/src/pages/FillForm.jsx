@@ -29,9 +29,14 @@ const FillForm = () => {
     setFormData({ ...formData, [input]: e.target.value });
   };
 
-  const handleFileChange = (input) => (file) => {
-    setFormData({ ...formData, [input]: file });
+  const handleFileChange = (fieldName) => (file) => {
+    const newFormData = { ...formData, [fieldName]: file };
+    if (fieldName === "passport") {
+      newFormData.passport = URL.createObjectURL(file); // Generate the URL
+    }
+    setFormData(newFormData);
   };
+
   const renderStep = () => {
     switch (step) {
       case 1:

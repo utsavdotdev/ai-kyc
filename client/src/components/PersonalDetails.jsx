@@ -8,7 +8,7 @@ const PersonalDetails = ({ formData, handleChange, nextStep }) => {
 
   return (
     <>
-      <div className="form_container grid w-full max-w-md items-center gap-3">
+      <div className="grid w-full max-w-md items-center gap-3">
         <span className="form_heading ">Personal Details</span>
         <div className="flex gap-3">
           <Input
