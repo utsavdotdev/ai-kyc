@@ -26,7 +26,7 @@
 }
 
 .step.active {
-  background-color: #007bff;
+  background-color: #ff391e;
   color: white;
 }
 
@@ -45,7 +45,7 @@
   + .step-connector
   + .step.active
   + .step-connector {
-  background-color: #007bff;
+  background-color: #ff391e;
 }
 
 .date_picker {
