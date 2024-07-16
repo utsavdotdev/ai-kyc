@@ -1,6 +1,5 @@
 import React from "react";
 import { RxReset } from "react-icons/rx";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TbPhotoPlus } from "react-icons/tb";
 import toast from "react-hot-toast";

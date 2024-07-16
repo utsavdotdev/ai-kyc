@@ -13,9 +13,33 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
-
+import axios from "../lib/axios.js";
+import toast from "react-hot-toast";
+import { set } from "react-hook-form";
 const CreateForm = () => {
   const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [finalData, setFinalData] = useState({
+    formName: "",
+    orgName: "ESEWA",
+    orgId : "123", // comes from the logned user id
+  });
+
+  const handleForm = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post("/api/form/create", finalData);
+      if (res) {
+        setLoading(false);
+        toast.success("Form Created");
+        window.location.reload();
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Error Creating Form");
+    }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -40,6 +64,9 @@ const CreateForm = () => {
               id="name"
               defaultValue="Info tech KYC Form"
               className="col-span-3"
+              onChange={(e) =>
+                setFinalData({ ...finalData, formName: e.target.value })
+              }
             />
           </div>
           <div className="flex flex-col w-full gap-4">
@@ -70,7 +97,13 @@ const CreateForm = () => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Create Form</Button>
+          <Button
+            disabled={loading ? true : false}
+            onClick={handleForm}
+            type="submit"
+          >
+            Create Form
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

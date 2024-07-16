@@ -2,12 +2,11 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
+import axios from "../lib/axios.js";
 const Review = ({ formData, prevStep, images }) => {
-  const handleSubmit = () => {
-    alert("Form submitted successfully!");
+  const handleSubmit = async () => {
+    const res = await axios.post("/api/submitkyc/post", formData);
   };
-
   console.log(formData);
   return (
     <>
@@ -143,7 +142,7 @@ const Review = ({ formData, prevStep, images }) => {
           <Button onClick={prevStep} variant="secondary">
             Back
           </Button>
-          <Button>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </div>
       </div>
     </>
