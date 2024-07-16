@@ -1,10 +1,24 @@
-import React from "react";
-
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { Label } from "@/components/ui/label";
+
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const PersonalDetails = ({ formData, handleChange, nextStep }) => {
+  const [gender, setGender] = useState(formData.gender || "");
+
+  const handleGenderSelect = (selectedGender) => {
+    setGender(selectedGender);
+    handleChange("gender")({ target: { value: selectedGender } });
+  };
+
   const handleNext = (e) => {
     e.preventDefault();
 
@@ -13,19 +27,24 @@ const PersonalDetails = ({ formData, handleChange, nextStep }) => {
       !formData.lastName ||
       !formData.email ||
       !formData.dob ||
-      !formData.phone
+      !formData.phone ||
+      !gender ||
+      // !formData.natinality ||
+      !formData.identificationNumber
     ) {
+      console.log(formData);
       toast.error("Please fill all the fields.");
       return;
     }
 
     nextStep();
   };
+
   return (
     <>
       <form>
         <div className="grid w-full max-w-md items-center gap-3">
-          <span className="form_heading ">Personal Details</span>
+          <span className="form_heading">Personal Details</span>
 
           <div className="flex gap-3">
             <Input
@@ -50,21 +69,70 @@ const PersonalDetails = ({ formData, handleChange, nextStep }) => {
             value={formData.email}
             onChange={handleChange("email")}
           />
-          <input
-            // className="h-11"
-            className="date_picker"
-            type="date"
-            placeholder="Date of Birth"
-            value={formData.dob}
-            onChange={handleChange("dob")}
+
+          <div style={{ gap: "10px", display: "flex" }}>
+            <input
+              style={{ width: "50%" }}
+              className="date_picker"
+              type="date"
+              placeholder="Date of Birth"
+              value={formData.dob}
+              onChange={handleChange("dob")}
+            />
+
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                asChild
+                className="h-11"
+                style={{ width: "50%" }}
+              >
+                <Button variant="outline">{gender || "Select Gender"}</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-full">
+                <DropdownMenuCheckboxItem
+                  checked={gender === "Male"}
+                  onClick={() => handleGenderSelect("Male")}
+                >
+                  Male
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={gender === "Female"}
+                  onClick={() => handleGenderSelect("Female")}
+                >
+                  Female
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={gender === "Other"}
+                  onClick={() => handleGenderSelect("Other")}
+                >
+                  Other
+                </DropdownMenuCheckboxItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          {/* <Input
+            className="h-11"
+            type="text"
+            placeholder="Nationality"
+            value={formData.natinality}
+            onChange={handleChange("natinality")}
+          /> */}
+          <Input
+            className="h-11"
+            type="text"
+            placeholder="Identification Number"
+            value={formData.identificationNumber}
+            onChange={handleChange("identificationNumber")}
           />
+
           <Input
             className="h-11"
             type="number"
-            placeholder="Your Number"
+            placeholder="Phone Number"
             value={formData.phone}
             onChange={handleChange("phone")}
           />
+
           <div
             style={{
               marginTop: "30px",

@@ -6,8 +6,13 @@ import toast from "react-hot-toast";
 const AddressDetails = ({ formData, handleChange, nextStep, prevStep }) => {
   const handleNext = (e) => {
     e.preventDefault();
-    if (!formData.address || !formData.zipCode) {
+    if (!formData.addressline1 || !formData.addressline2 || !formData.zipCode) {
       toast.error("Please fill all the fields.");
+      return;
+    }
+    //  allow zipline to 5 to 10 digits
+    if (formData.zipCode.length < 5 || formData.zipCode.length > 10) {
+      toast.error("Zip code must be between 5 to 10 digits");
       return;
     }
     nextStep();
@@ -17,12 +22,28 @@ const AddressDetails = ({ formData, handleChange, nextStep, prevStep }) => {
       <form className="form_container grid w-full max-w-md items-center gap-3">
         <span className="form_heading ">Address Verification</span>
 
+        <div className="flex gap-3">
+          <Input
+            className="h-11"
+            type="text"
+            placeholder="Address Line 1"
+            value={formData.addressline1}
+            onChange={handleChange("addressline1")}
+          />
+          <Input
+            className="h-11"
+            type="text"
+            placeholder="Address Line 2"
+            value={formData.addressline2}
+            onChange={handleChange("addressline2")}
+          />
+        </div>
         <Input
           className="h-11"
           type="text"
-          placeholder="Permanent Address"
-          value={formData.address}
-          onChange={handleChange("address")}
+          placeholder="Country"
+          value={formData.country}
+          onChange={handleChange("country")}
         />
         <Input
           className="h-11"

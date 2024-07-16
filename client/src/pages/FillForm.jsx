@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/fillform.css";
-
 import StepIndicator from "../components/StepIndicator";
 import PersonalDetails from "../components/PersonalDetails";
 import AddressDetails from "../components/AddressDetails";
@@ -8,20 +7,36 @@ import CameraAccess from "../components/CameraAccess";
 import DocumentUpload from "../components/DocumentUpload";
 import Review from "../components/Review";
 
+const STORAGE_KEY = "formData"; // Key for local storage
+
 const FillForm = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    dob: "",
-    phone: "",
-    address: "",
-    zipCode: "",
-    photo: null,
-    passport: null,
+  const [formData, setFormData] = useState(() => {
+    const storedData = localStorage.getItem(STORAGE_KEY);
+    return storedData
+      ? JSON.parse(storedData)
+      : {
+          firstName: "",
+          lastName: "",
+          email: "",
+          dob: "",
+          phone: "",
+          zipCode: "",
+          photo: "",
+          passport: "",
+          gender: "",
+          // natinality: "",
+          identificationNumber: "",
+          addressline1: "",
+          adressline2: "",
+          country: "",
+        };
   });
   console.log(formData);
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  }, [formData]); // Save data on any change in formData
+
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
@@ -30,7 +45,9 @@ const FillForm = () => {
     setFormData({ ...formData, [input]: e.target.value });
   };
 
-  const handleFileChange = (fieldName) => (file) => {};
+  const handleFileChange = (fieldName) => (file) => {
+    setFormData({ ...formData, [fieldName]: file });
+  };
 
   const renderStep = () => {
     switch (step) {
@@ -83,13 +100,10 @@ const FillForm = () => {
         );
     }
   };
+
   return (
     <>
-      <div
-        style={{
-          marginTop: "100px",
-        }}
-      >
+      <div style={{ marginTop: "100px" }}>
         <StepIndicator currentStep={step} />
       </div>
       <div className="app">{renderStep()}</div>

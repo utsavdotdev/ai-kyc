@@ -18,7 +18,7 @@ const Review = ({ formData, prevStep }) => {
               width: "100%",
             }}
           >
-            <Label htmlFor="fname">Email</Label>
+            <Label htmlFor="fname">First Name</Label>
             <Input
               id="fname"
               disabled
@@ -54,7 +54,17 @@ const Review = ({ formData, prevStep }) => {
           value={formData.email}
           // onChange={handleChange("email")}
         />
-        <Label htmlFor="dob">Date of Birth</Label>
+        <Label htmlFor="identificationNumber">Identification Number</Label>
+        <Input
+          disabled
+          className="h-11"
+          type="text"
+          placeholder="Identification Number"
+          value={formData.identificationNumber}
+          // onChange={handleChange("identificationNumber")}
+        />
+        <Label htmlFor="dob">Date Of birth</Label>
+
         <input
           disabled
           // className="h-11"
@@ -73,13 +83,22 @@ const Review = ({ formData, prevStep }) => {
           value={formData.phone}
           // onChange={handleChange("phone")}
         />
-        <Label htmlFor="address">Address</Label>
+        <Label htmlFor="address">Address Line 1</Label>
         <Input
           disabled
           className="h-11"
           type="text"
           placeholder="Address"
-          value={formData.address}
+          value={formData.addressline1}
+          // onChange={handleChange("address")}
+        />
+        <Label htmlFor="address">Address Line 2</Label>
+        <Input
+          disabled
+          className="h-11"
+          type="text"
+          placeholder="Address"
+          value={formData.addressline2}
           // onChange={handleChange("address")}
         />
         <Label htmlFor="zip">Zip Code</Label>
