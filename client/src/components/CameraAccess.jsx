@@ -1,12 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
+const CameraAccess = ({
+  setFormData,
+  formData,
+  nextStep,
+  prevStep,
+  setImages,
+  images,
+}) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [error, setError] = useState(null);
-  const [capturedImage, setCapturedImage] = useState(formData.photo || null);
+  const [capturedImage, setCapturedImage] = useState(images.face || null);
   const [cameraReady, setCameraReady] = useState(false);
 
   useEffect(() => {
@@ -75,7 +82,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
       canvas.toBlob((blob) => {
         const imageUrl = URL.createObjectURL(blob);
         setCapturedImage(imageUrl);
-        setFormData({ ...formData, photo: imageUrl });
+        setImages({ ...images, face: imageUrl });
         stopCamera();
       });
     }
@@ -91,7 +98,7 @@ const CameraAccess = ({ setFormData, formData, nextStep, prevStep }) => {
 
   const retakePhoto = () => {
     setCapturedImage(null);
-    setFormData({ ...formData, photo: null });
+    setImages({ ...images, face: null });
     setCameraReady(false);
   };
 

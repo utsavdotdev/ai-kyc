@@ -19,7 +19,7 @@ const AddressDetails = ({ formData, handleChange, nextStep, prevStep }) => {
   };
   return (
     <>
-      <form className="form_container grid w-full max-w-md items-center gap-3">
+      <form className="form_container grid w-md max-w-md items-center gap-3">
         <span className="form_heading ">Address Verification</span>
 
         <div className="flex gap-3">

@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
-const Review = ({ formData, prevStep }) => {
+const Review = ({ formData, prevStep, images }) => {
   const handleSubmit = () => {
     alert("Form submitted successfully!");
   };
 
+  console.log(formData);
   return (
     <>
       <div className="grid w-full max-w-md items-center gap-3">
@@ -25,7 +26,7 @@ const Review = ({ formData, prevStep }) => {
               className="h-11"
               type="text"
               placeholder="First Name"
-              value={formData.firstName}
+              value={formData?.firstName}
             />
           </div>
           <div
@@ -39,7 +40,7 @@ const Review = ({ formData, prevStep }) => {
               className="h-11"
               type="text"
               placeholder="Last Name"
-              value={formData.lastName}
+              value={formData?.lastName}
               // onChange={handleChange("lastName")}
             />
           </div>
@@ -51,7 +52,7 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="email"
           placeholder="Email"
-          value={formData.email}
+          value={formData?.email}
           // onChange={handleChange("email")}
         />
         <Label htmlFor="identificationNumber">Identification Number</Label>
@@ -60,7 +61,7 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="text"
           placeholder="Identification Number"
-          value={formData.identificationNumber}
+          value={formData?.identificationNumber}
           // onChange={handleChange("identificationNumber")}
         />
         <Label htmlFor="dob">Date Of birth</Label>
@@ -71,7 +72,7 @@ const Review = ({ formData, prevStep }) => {
           className="date_picker"
           type="date"
           placeholder="Date of Birth"
-          value={formData.dob}
+          value={formData?.dob}
           // onChange={handleChange("dob")}
         />
         <Label htmlFor="phone">Phone</Label>
@@ -80,7 +81,7 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="number"
           placeholder="Your Number"
-          value={formData.phone}
+          value={formData?.phone}
           // onChange={handleChange("phone")}
         />
         <Label htmlFor="address">Address Line 1</Label>
@@ -89,7 +90,7 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="text"
           placeholder="Address"
-          value={formData.addressline1}
+          value={formData?.addressline1}
           // onChange={handleChange("address")}
         />
         <Label htmlFor="address">Address Line 2</Label>
@@ -98,7 +99,7 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="text"
           placeholder="Address"
-          value={formData.addressline2}
+          value={formData?.addressline2}
           // onChange={handleChange("address")}
         />
         <Label htmlFor="zip">Zip Code</Label>
@@ -107,12 +108,12 @@ const Review = ({ formData, prevStep }) => {
           className="h-11"
           type="number"
           placeholder="Zip Code"
-          value={formData.zipCode}
+          value={formData?.zipCode}
           // onChange={handleChange("zipCode")}
         />
         <Label htmlFor="photo">Photo</Label>
         <img
-          src={formData.photo}
+          src={images?.face}
           alt="photo"
           style={{
             width: "200px",
@@ -121,7 +122,7 @@ const Review = ({ formData, prevStep }) => {
         />
         <Label htmlFor="passport">Passport</Label>
         <img
-          src={formData.passport}
+          src={images?.passport}
           alt="passport"
           style={{
             width: "100%",

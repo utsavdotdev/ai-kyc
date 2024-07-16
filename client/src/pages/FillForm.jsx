@@ -22,8 +22,8 @@ const FillForm = () => {
           dob: "",
           phone: "",
           zipCode: "",
-          photo: "",
-          passport: "",
+          // photo: "",
+          // passport: "",
           gender: "",
           // natinality: "",
           identificationNumber: "",
@@ -32,7 +32,10 @@ const FillForm = () => {
           country: "",
         };
   });
-  console.log(formData);
+  const [images, setImages] = useState({
+    face: "",
+    passport: "",
+  });
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, [formData]); // Save data on any change in formData
@@ -43,10 +46,6 @@ const FillForm = () => {
   // only for text type input
   const handleChange = (input) => (e) => {
     setFormData({ ...formData, [input]: e.target.value });
-  };
-
-  const handleFileChange = (fieldName) => (file) => {
-    setFormData({ ...formData, [fieldName]: file });
   };
 
   const renderStep = () => {
@@ -71,9 +70,8 @@ const FillForm = () => {
       case 3:
         return (
           <CameraAccess
-            setFormData={setFormData}
-            formData={formData}
-            handleFileChange={handleFileChange}
+            setImages={setImages}
+            images={images}
             nextStep={nextStep}
             prevStep={prevStep}
           />
@@ -81,15 +79,22 @@ const FillForm = () => {
       case 4:
         return (
           <DocumentUpload
+            setImages={setImages}
+            images={images}
             setFormData={setFormData}
-            formData={formData}
-            handleFileChange={handleFileChange}
             nextStep={nextStep}
             prevStep={prevStep}
           />
         );
       case 5:
-        return <Review formData={formData} prevStep={prevStep} />;
+        return (
+          <Review
+            formData={formData}
+            setImages={setImages}
+            images={images}
+            prevStep={prevStep}
+          />
+        );
       default:
         return (
           <PersonalDetails

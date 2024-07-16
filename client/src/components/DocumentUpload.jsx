@@ -5,23 +5,31 @@ import { Button } from "@/components/ui/button";
 import { TbPhotoPlus } from "react-icons/tb";
 import toast from "react-hot-toast";
 
-const DocumentUpload = ({ formData, setFormData, nextStep, prevStep }) => {
+const DocumentUpload = ({
+  formData,
+  setFormData,
+  nextStep,
+  prevStep,
+  setImages,
+  images,
+}) => {
   // only for passport change
   const onFileChange = (e) => {
-    setFormData({
-      ...formData,
+    setImages({
+      ...images,
       passport: URL.createObjectURL(e.target.files[0]),
     });
   };
+  
   const clearPassport = () => {
-    setFormData({
-      ...formData,
+    setImages({
+      ...images,
       passport: null,
     });
   };
 
   const handleNext = (e) => {
-    if (!formData.passport) {
+    if (!images.passport) {
       toast.error("Please upload passport.");
       return;
     }
@@ -32,7 +40,7 @@ const DocumentUpload = ({ formData, setFormData, nextStep, prevStep }) => {
       <div className="form_container grid w-full max-w-md items-center gap-3">
         <div className="main_container">
           <span className="form_heading ">Document Verification</span>
-          {formData.passport && (
+          {images.passport && (
             <Button
               onClick={clearPassport}
               style={{
@@ -45,8 +53,8 @@ const DocumentUpload = ({ formData, setFormData, nextStep, prevStep }) => {
           )}
         </div>
 
-        {formData.passport ? (
-          <img src={formData.passport} alt="img" style={{}} />
+        {images.passport ? (
+          <img src={images.passport} alt="img" style={{}} />
         ) : (
           <div className="dummy_box">
             <label htmlFor="passport" className="dummy_box_label">
