@@ -7,7 +7,7 @@ const formSchema = new mongoose.Schema({
   orgName: {
     type: String,
   },
-  orgId: {
+  userId: {
     type: String,
   },
   users: {

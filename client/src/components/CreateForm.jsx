@@ -13,27 +13,43 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
-import axios from "../lib/axios.js";
+import axios from "../config/axios.js";
 import toast from "react-hot-toast";
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
+import React, { useContext } from "react";
+import { ContextProvider } from "../config/Context.jsx";
+
 const CreateForm = () => {
+  const { user } = useContext(ContextProvider);
+
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [finalData, setFinalData] = useState({
     formName: "",
     orgName: "ESEWA",
-    orgId : "123", // comes from the logned user id
+    userId: "", // comes from the logned user id
   });
 
   const handleForm = async () => {
     setLoading(true);
     try {
-      const res = await axios.post("/api/form/create", finalData);
+      const res = await axios.post("/form/create", {
+        formName: finalData.formName,
+        orgName: finalData.orgName,
+        userId: user?._id,
+      });
       if (res) {
         setLoading(false);
         toast.success("Form Created");
-        window.location.reload();
+        // clear the form
+        setFinalData({
+          formName: "",
+          orgName: "",
+          userId: "",
+        });
+
+        // window.location.reload();
       }
     } catch (error) {
       setLoading(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Home,
   LineChart,
@@ -13,7 +13,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -27,8 +26,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Links from "../components/Links";
+import { ContextProvider } from "../config/Context";
+import axios from "../config/axios";
 
 const links = [
   {
@@ -49,12 +50,33 @@ const links = [
 ];
 
 const NavOnly = () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+  const role = localStorage.getItem("role");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken === null && role !== "org") {
+      return navigate("/");
+    }
+  }, []);
+
+  const Logout = async () => {
+    const res = await axios.post(
+      "/user/logout",
+      { refreshToken: refreshToken },
+      header
+    );
+    window.location.reload();
+    localStorage.clear();
+    setUser([]);
+  };
+
+  const { user, setUser } = useContext(ContextProvider);
   const location = useLocation();
   const { pathname } = location;
   const path = pathname.split("/");
   path.shift();
-
-  console.log(path);
   return (
     <>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -160,7 +182,7 @@ const NavOnly = () => {
                   className="overflow-hidden rounded-full"
                 >
                   <img
-                    src="/pic.png"
+                    src={user?.avatar}
                     width={36}
                     height={36}
                     alt="Avatar"
@@ -171,7 +193,11 @@ const NavOnly = () => {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Button variant="ghost" size="sm" onClick={Logout}>
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </header>

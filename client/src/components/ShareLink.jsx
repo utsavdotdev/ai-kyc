@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const ShareLink = () =>{
+const ShareLink = ({link}) =>{
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,7 +34,7 @@ const ShareLink = () =>{
             </Label>
             <Input
               id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
+              defaultValue={link}
               readOnly
             />
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import axios from "../lib/axios.js";
+import axios from "../config/axios.js";
 const Review = ({ formData, prevStep, images }) => {
   const handleSubmit = async () => {
     const res = await axios.post("/api/submitkyc/post", formData);
