@@ -1,9 +1,41 @@
-import React from "react";
-// import YourSvg from "/assets/google.svg";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { auth } from "../config/function.js";
 
 const Navbar = () => {
-  const loginWithGithub = async () => {};
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then(async (res) => {
+          const { name, email, picture } = res.data;
+          const response = await auth(name, email, picture, "dash");
+          localStorage.setItem("accessToken", response.accessToken);
+          localStorage.setItem("refreshToken", response.refreshToken);
+          localStorage.setItem("role", response.user);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
   return (
     <>
       <div className="w-full flex justify-center items-center p-4">
@@ -14,46 +46,13 @@ const Navbar = () => {
             </p>
           </div>
           <div className="h-full flex gap-2 justify-center items-center sm:gap-5">
-            {/* {!session ? ( */}
             <>
-              <Button size={"sm"} onClick={loginWithGithub}>
-                {/* <img src={YourSvg} alt="Github" className="h-5 w-5 mr-1" /> */}
-
+              <Button size={"sm"} onClick={login}>
                 <p className="sm:after:content-[' with Github'] font-pops">
                   Login
                 </p>
               </Button>
             </>
-            {/* ) : (
-              <>
-                <div className="flex gap-2 items-center">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Image
-                          src={user?.avatar_url}
-                          alt="avatar"
-                          width={30}
-                          height={30}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{user?.full_name}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-
-                  <Button
-                    size={"sm"}
-                    onClick={logout}
-                    variant={"outline"}
-                    className="border-none rounded-full p-2"
-                  >
-                    <LogOut className="h-5 w-5" strokeWidth={"1.25px"} />
-                  </Button>
-                </div>
-              </>
-            )} */}
           </div>
         </div>
       </div>

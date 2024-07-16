@@ -10,9 +10,6 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
-  role:{
-    type:Array,
-  },
   createdAt: {
     type: Date,
     default: new Date(),
