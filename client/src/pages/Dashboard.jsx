@@ -1,8 +1,10 @@
 import Forms from "../components/Forms";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { ContextProvider } from "../config/Context";
 
 const Dashboard = () => {
+  const {myForm } = useContext(ContextProvider);
   return (
     <>
       {/* <div className="flex items-center">
@@ -24,7 +26,7 @@ const Dashboard = () => {
         </div>
       </div> */}
 
-      <Forms />
+      <Forms myForm={myForm} />
     </>
   );
 };

@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { auth } from "../config/function.js";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
+  const navigate = useNavigate();
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
@@ -31,6 +32,7 @@ const Navbar = () => {
           localStorage.setItem("accessToken", response.accessToken);
           localStorage.setItem("refreshToken", response.refreshToken);
           localStorage.setItem("role", response.user);
+          window.location.reload();
         })
         .catch((err) => console.log(err));
     }

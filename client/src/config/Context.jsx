@@ -5,14 +5,28 @@ export const ContextProvider = createContext();
 const Context = ({ children }) => {
   const accessToken = localStorage.getItem("accessToken");
   const refreshToken = localStorage.getItem("refreshToken");
+  const role = localStorage.getItem("role");
+  const [user, setUser] = useState();
+  const [myForm, setmyForm] = useState([]);
 
   useEffect(() => {
-    if (accessToken !== null) {
+    if (accessToken !== null && role === "org") {
       fetchUser();
     }
   }, []);
 
-  const [user, setUser] = useState();
+  useEffect(() => {
+    getForms();
+  }, [user]);
+
+  const getForms = async () => {
+    try {
+      const res = await axios.get(`/form/get/${user?._id}`);
+      setmyForm(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //getting access token through refresh token
   const getAccessToken = async () => {
@@ -61,7 +75,6 @@ const Context = ({ children }) => {
       console.log(error);
     }
   };
-  // console.log("user", user);
 
   return (
     <>
@@ -69,6 +82,7 @@ const Context = ({ children }) => {
         value={{
           user,
           setUser,
+          myForm,
         }}
       >
         {children}

@@ -61,6 +61,12 @@ const NavOnly = () => {
     }
   }, []);
 
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const Logout = async () => {
     const res = await axios.post(
       "/user/logout",
@@ -167,10 +173,6 @@ const NavOnly = () => {
                     )}
                   </>
                 ))}
-                {/* <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>All Users</BreadcrumbPage>
-                </BreadcrumbItem> */}
               </BreadcrumbList>
             </Breadcrumb>
             <div className="relative ml-auto flex-1 md:grow-0"></div>
@@ -193,10 +195,8 @@ const NavOnly = () => {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Button variant="ghost" size="sm" onClick={Logout}>
+                <DropdownMenuItem onClick={Logout}>
                     Logout
-                  </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -31,22 +31,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateForm from "./CreateForm";
 import ShareLink from "./ShareLink";
-import axios from "../config/axios.js";
-import { ContextProvider } from "@/config/Context";
-const Forms = () => {
-  const { user } = useContext(ContextProvider);
-  const [myForm, setmyForm] = useState([]);
-
-  useEffect(async () => {
-    try {
-      const userId = localStorage.getItem("user_id");
-      const res = await axios.get(`/form/get/${userId}`);
-      setmyForm(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
+const Forms = ({myForm}) => {
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">

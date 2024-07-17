@@ -10,7 +10,7 @@ const NavFoot = () => {
   
   console.log(accessToken, role);
   useEffect(() => {
-    if (accessToken && role === "org") {
+    if (accessToken !== null && role === "org") {
       return navigate("/dashboard");
     }
   }, []);

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
 import "../styles/fillform.css";
 import StepIndicator from "../components/StepIndicator";
@@ -7,11 +6,24 @@ import AddressDetails from "../components/AddressDetails";
 import CameraAccess from "../components/CameraAccess";
 import DocumentUpload from "../components/DocumentUpload";
 import Review from "../components/Review";
+import { X } from "lucide-react";
+import { useGoogleLogin, googleLogout } from "@react-oauth/google";
+import axios from "axios";
+import myaxios from "../config/axios";
+import { auth } from "../config/function.js";
+import { Button } from "@/components/ui/button";
 
 const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
+  const role = localStorage.getItem("role");
+  const access = localStorage.getItem("accessToken");
+  const refresh = localStorage.getItem("refreshToken");
+
   const [step, setStep] = useState(1);
+  const [user, setUser] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [isLogin, setIsLogin] = useState(role === "formuser" ? true : false);
   const [formData, setFormData] = useState(() => {
     const storedData = localStorage.getItem(STORAGE_KEY);
     return storedData
@@ -41,6 +53,90 @@ const FillForm = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, [formData]); // Save data on any change in formData
 
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then(async (res) => {
+          const { name, email, picture } = res.data;
+          const response = await auth(name, email, picture, "form");
+          localStorage.clear();
+          localStorage.setItem("accessToken", response.accessToken);
+          localStorage.setItem("refreshToken", response.refreshToken);
+          localStorage.setItem("role", response.user);
+          setIsLogin(true);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (access) {
+      fetchUser();
+    }
+  }, [access]);
+
+  //getting access token through refresh token
+  const getAccessToken = async () => {
+    try {
+      if (refresh) {
+        const res = await myaxios.post("/token/refresh", {
+          refreshToken: refresh,
+        });
+        if (res) {
+          //set the access token in local storage of userInfo
+          localStorage.setItem("accessToken", res.data.accessToken);
+          return res.data.accessToken;
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("role");
+        window.location.replace("/");
+      }
+      console.log(error);
+    }
+  };
+
+  const fetchUser = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const res = await myaxios.get("/user", {
+        headers: {
+          "x-access-token": accessToken,
+        },
+      });
+      setUserData(res?.data?.user);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        const accessTok = await getAccessToken();
+        const res = await myaxios.get("/user", {
+          headers: {
+            "x-access-token": accessTok,
+          },
+        });
+        localStorage.setItem("user_id", res?.data?.user?._id);
+        setUserData(res?.data?.user);
+      }
+      console.log(error);
+    }
+  };
+
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
@@ -49,6 +145,19 @@ const FillForm = () => {
     setFormData({ ...formData, [input]: e.target.value });
   };
 
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const Logout = async () => {
+    await myaxios.post("/user/logout", { refreshToken: refresh }, header);
+    setUserData([]);
+    googleLogout();
+    localStorage.clear();
+    window.location.reload();
+  };
   const renderStep = () => {
     switch (step) {
       case 1:
@@ -107,13 +216,21 @@ const FillForm = () => {
     }
   };
 
-  console.log(import.meta.env.VITE_API_URL);
-
-  let isLogin = true;
   return (
     <>
       {isLogin ? (
         <>
+          <div className="flex justify-end p-4 text-md">
+            <div className="flex px-6 py-2 gap-4 border-2 rounded-full items-center">
+              {userData?.username}
+              <div
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-2 cursor-pointer"
+                onClick={() => Logout()}
+              >
+                <X className="h-5 w-6" />
+              </div>
+            </div>
+          </div>
           <div style={{ marginTop: "100px" }}>
             <StepIndicator currentStep={step} />
           </div>
@@ -141,6 +258,7 @@ const FillForm = () => {
             style={{
               display: "flex",
             }}
+            onClick={login}
           >
             Login
           </Button>
