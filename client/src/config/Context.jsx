@@ -23,6 +23,7 @@ const Context = ({ children }) => {
     try {
       const res = await axios.get(`/form/get/${user?._id}`);
       setmyForm(res.data);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

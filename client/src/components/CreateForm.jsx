@@ -21,14 +21,13 @@ import { ContextProvider } from "../config/Context.jsx";
 
 const CreateForm = () => {
   const { user } = useContext(ContextProvider);
-
+  console.log("user in create", user);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [finalData, setFinalData] = useState({
     formName: "",
-    orgName: "ESEWA",
-    userId: "", // comes from the logned user id
+    orgName: "org", // comes form logged in user
   });
 
   const handleForm = async () => {
@@ -49,7 +48,7 @@ const CreateForm = () => {
           userId: "",
         });
 
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (error) {
       setLoading(false);

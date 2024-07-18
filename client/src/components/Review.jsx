@@ -3,11 +3,51 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import axios from "../config/axios.js";
-const Review = ({ formData, prevStep, images }) => {
+import toast from "react-hot-toast";
+const Review = ({ formData, prevStep, images, id }) => {
+  const [loading, setLoading] = useState(false);
+  const currentUrl = window.location.href;
+
   const handleSubmit = async () => {
-    const res = await axios.post("/api/submitkyc/post", formData);
+    setLoading(true);
+    try {
+      const formDataWithImages = new FormData();
+      for (const key in formData) {
+        formDataWithImages.append(key, formData[key]);
+      }
+      formDataWithImages.append("userId", id);
+      formDataWithImages.append("link", currentUrl);
+
+      const imageKeys = Object.keys(images);
+      for (const key of imageKeys) {
+        const blobUrl = images[key];
+        const response = await fetch(blobUrl);
+        const blob = await response.blob();
+        const file = new File([blob], `${key}.jpg`, { type: blob.type });
+        formDataWithImages.append(key, file);
+      }
+
+      const response = await axios.post("/submitkyc/post", formDataWithImages, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response) {
+        setLoading(false);
+        console.log(
+          "KYC data received and saved successfully. Wait for Verification on Email."
+        );
+        toast.success(
+          "KYC data received and saved successfully. Wait for Verification on Email."
+        );
+      }
+    } catch (error) {
+      console.error("Error submitting KYC data:", error);
+      toast.error("Error submitting KYC data");
+    }
   };
-  console.log(formData);
+
   return (
     <>
       <div className="grid w-full max-w-md items-center gap-3">
@@ -52,7 +92,6 @@ const Review = ({ formData, prevStep, images }) => {
           type="email"
           placeholder="Email"
           value={formData?.email}
-          // onChange={handleChange("email")}
         />
         <Label htmlFor="identificationNumber">Identification Number</Label>
         <Input
@@ -139,10 +178,16 @@ const Review = ({ formData, prevStep, images }) => {
           }}
           className="controller"
         >
-          <Button onClick={prevStep} variant="secondary">
+          <Button
+            disabled={loading ? true : false}
+            onClick={prevStep}
+            variant="secondary"
+          >
             Back
           </Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button disabled={loading ? true : false} onClick={handleSubmit}>
+            Submit
+          </Button>
         </div>
       </div>
     </>

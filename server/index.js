@@ -1,18 +1,22 @@
 import express from "express";
 import { connectDB } from "./utils/db.js";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// router
-
+//  router imports
 import AuthRouter from "./router/AuthRouter.js";
 import TokenRouter from "./router/TokenRouter.js";
 import UserRouter from "./router/UserRouter.js";
-import Form from "./router/formRouter.js";
-import FilledUser from "./router/filledUserRouter.js";
+import FormRouter from "./router/formRouter.js";
+import FilledUserRouter from "./router/filledUserRouter.js";
+import upload from "./utils/multer.js"; // Import multer configuration
 
+// Initialize express app
 const app = express();
+
+// Middlewares
 app.use(cors());
-//MiddleWares
 app.use(express.json());
 app.use(
   cors({
@@ -21,14 +25,20 @@ app.use(
 );
 app.use(express.urlencoded({ extended: false }));
 
+// Serve static files
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Connect to the database
 connectDB();
 
-//app routes
+// Define routes
 app.use("/api/auth", AuthRouter);
 app.use("/api/token", TokenRouter);
 app.use("/api/user", UserRouter);
-app.use("/api/form", Form); // org create link
-app.use("/api/submitkyc", FilledUser);
+app.use("/api/form", FormRouter); // Organization form creation endpoint
+app.use("/api/submitkyc", upload, FilledUserRouter); // Endpoint hit from review.js to submit KYC data
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -139,6 +139,7 @@ const PersonalDetails = ({ formData, handleChange, nextStep }) => {
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
+              paddingBottom: "20px",
             }}
             className="controller"
           >
