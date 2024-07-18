@@ -17,23 +17,23 @@ import { Button } from "@/components/ui/button";
 const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
-  useEffect(async () => {
-    const currentUrl = window.location.href;
-    const match = currentUrl.match(/org-(.*)/);
-    let extractedPart = "";
-    if (match && match[1]) {
-      extractedPart = match[1];
-      console.log("Extracted Part:", extractedPart);
-    } else {
-      console.log("No match found.");
-    }
-    try {
-      const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
-    } catch (error) {
-      console.log(error);
-      window.location.replace("/");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   const currentUrl = window.location.href;
+  //   const match = currentUrl.match(/org-(.*)/);
+  //   let extractedPart = "";
+  //   if (match && match[1]) {
+  //     extractedPart = match[1];
+  //     console.log("Extracted Part:", extractedPart);
+  //   } else {
+  //     console.log("No match found.");
+  //   }
+  //   try {
+  //     const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
+  //   } catch (error) {
+  //     console.log(error);
+  //     window.location.replace("/");
+  //   }
+  // }, []);
 
   const role = localStorage.getItem("role");
   const access = localStorage.getItem("accessToken");

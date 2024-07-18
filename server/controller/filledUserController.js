@@ -47,7 +47,7 @@ export const submitKYC = async (req, res) => {
     if (filledData) {
       await orgForm.findOneAndUpdate(
         { link: req.body.link },
-        { $push: { users: filledU._id } },
+        { $push: { users: filledData._id } },
         { new: true }
       );
       console.log("Data updated in the array of the org form");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -41,10 +41,14 @@ const Review = ({ formData, prevStep, images, id }) => {
         toast.success(
           "KYC data received and saved successfully. Wait for Verification on Email."
         );
+        window.location.reload();
+        window.location.replace("/");
+        localStorage.removeItem("formData");
       }
     } catch (error) {
       console.error("Error submitting KYC data:", error);
       toast.error("Error submitting KYC data");
+      setLoading(false);
     }
   };
 
