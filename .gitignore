@@ -2,6 +2,7 @@
 /client/yarn.lock
 /server/node_modules
 /server/.env
+/server/uploads
 /client/.env
 /server/yarn.lock
 
