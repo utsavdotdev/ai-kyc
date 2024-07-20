@@ -20,6 +20,7 @@ export const AuthController = async (req, res) => {
       username: name,
       email,
       avatar: picture,
+      orgName: name + "-" + Math.floor(Math.random() * 1000),
     }).save();
     const { accessToken, refreshToken } = await generateToken(newUser._id);
     res.status(200).json({

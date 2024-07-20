@@ -11,7 +11,7 @@ export const createForm = async (req, res) => {
   });
   try {
     const uniqueLink =
-      `http://localhost:5173/userform/${orgName}-${newForm._id}`
+      `http://localhost:5173/userform/${formName}-${newForm._id}`
         .toLowerCase()
         .replace(/\s+/g, "-");
 
@@ -51,6 +51,18 @@ export const checkURL = async (req, res) => {
     } else {
       res.status(200).json({ message: "Form found", form });
     }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateStatus = async (req, res) => {
+  const { formId } = req.body;
+  const form = await Form.find({ _id: formId });
+  try {
+    form.status = !form.status;
+    await form.save();
+    res.status(200).json({ message: "Form status updated" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

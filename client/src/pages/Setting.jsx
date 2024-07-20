@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,8 +10,11 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { ContextProvider } from "../config/Context";
 
 const Setting = () => {
+    const { user } = useContext(ContextProvider);
+
   return (
     <>
       <div className="grid w-full max-w-6xl gap-2">
@@ -26,7 +29,7 @@ const Setting = () => {
             </CardHeader>
             <CardContent>
               <form>
-                <Input placeholder="Infotech" />
+                <Input placeholder="Infotech" value={user?.orgName} />
               </form>
             </CardContent>
             <CardFooter className="border-t px-6 py-4">

@@ -32,6 +32,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateForm from "./CreateForm";
 import ShareLink from "./ShareLink";
 const Forms = ({myForm}) => {
+
+  const [active, setActive] = useState(false);
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">
@@ -90,7 +92,6 @@ const Forms = ({myForm}) => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {/* here to  */}
                 {myForm.map((form) => (
                   <TableRow>
                     <TableCell className="font-medium">

@@ -27,7 +27,7 @@ const CreateForm = () => {
 
   const [finalData, setFinalData] = useState({
     formName: "",
-    orgName: "org", // comes form logged in user
+    orgName: user?.orgName,
   });
 
   const handleForm = async () => {
