@@ -17,8 +17,8 @@ import { Button } from "@/components/ui/button";
 const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
+  let currentUrl = window.location.href;
   useEffect(async () => {
-    const currentUrl = window.location.href;
     const match = currentUrl.match(/org-(.*)/);
     let extractedPart = "";
     if (match && match[1]) {
@@ -270,7 +270,8 @@ const FillForm = () => {
               padding: "10px",
             }}
           >
-            Please Login to Fill the KYC Form of Esewa.
+            Please Login to Fill the KYC Form of{" "}
+            {currentUrl?.split("/")[4]?.split("-")[0]}.
           </h1>
           <Button
             style={{
