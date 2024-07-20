@@ -19,6 +19,7 @@ const Context = ({ children }) => {
     getForms();
   }, [user]);
 
+
   const getForms = async () => {
     try {
       const res = await axios.get(`/form/get/${user?._id}`);
@@ -37,7 +38,6 @@ const Context = ({ children }) => {
           refreshToken: refreshToken,
         });
         if (res) {
-          //set the access token in local storage of userInfo
           localStorage.setItem("accessToken", res.data.accessToken);
           return res.data.accessToken;
         }
@@ -76,6 +76,8 @@ const Context = ({ children }) => {
       console.log(error);
     }
   };
+
+ 
 
   return (
     <>

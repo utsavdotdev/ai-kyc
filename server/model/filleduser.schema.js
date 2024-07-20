@@ -5,15 +5,12 @@ const filledUserSchema = new mongoose.Schema({
     type: String,
   },
   formId: {
-    // used to identify the organazation/company
     type: String,
   },
   status: {
-    // verification status of the form
     type: String,
   },
   accuracy: {
-    // our ai accuracy
     type: String,
   },
   details: {

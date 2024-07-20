@@ -5,6 +5,7 @@ import verifyRefreshToken from "../utils/verifyRefreshToken.js";
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password-__v");
+
     if (!user) {
       return res.status(404).json({ error: true, msg: "User not found!" });
     }
@@ -33,4 +34,3 @@ export const userLogout = async (req, res) => {
     res.status(500).json({ error: true, msg: "Internal server error" });
   }
 };
-

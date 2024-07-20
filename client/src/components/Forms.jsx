@@ -31,7 +31,37 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateForm from "./CreateForm";
 import ShareLink from "./ShareLink";
+import axios from "../config/axios";
+import toast from "react-hot-toast";
+
 const Forms = ({ myForm }) => {
+  const [loading, setLoading] = useState(false);
+  const deleteForm = async (formId) => {
+    try {
+      const res = await axios.delete(`/form/deleteForm/${formId}`);
+      if (res.status === 200) {
+        toast.success("Form deleted");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error deleting form");
+    }
+  };
+
+  const updateStatus = async (formId) => {
+    try {
+      const res = await axios.patch(`/form/updateStatus/${formId}`);
+      if (res.status === 200) {
+        toast.success("Form status updated");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating form status");
+    }
+  };
+
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">
@@ -62,6 +92,184 @@ const Forms = ({ myForm }) => {
           <CreateForm />
         </div>
       </div>
+      <TabsContent value="active">
+        <Card x-chunk="dashboard-06-chunk-0">
+          <CardHeader>
+            <CardTitle>Forms</CardTitle>
+            <CardDescription>
+              Manage your forms and view their status.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="hidden md:table-cell p-0">
+                    Filled by (users)
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Created at
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Form Link
+                  </TableHead>
+
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {myForm
+                  .filter((form) => form.status)
+                  .map((form) => (
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        {form.formName}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">
+                          {form.status ? "Active" : "Draft"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {form?.users?.length}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {form.createdAt}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <ShareLink link={form?.link} />
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              aria-haspopup="true"
+                              size="icon"
+                              variant="ghost"
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                              onClick={() => updateStatus(form?._id)}
+                            >
+                              {form?.status ? "Inactive" : "Active"}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => deleteForm(form?._id)}
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter>
+            <div className="text-xs text-muted-foreground">
+              Showing <strong>1-10</strong> of <strong>{myForm?.length}</strong>
+              forms
+            </div>
+          </CardFooter>
+        </Card>
+      </TabsContent>
+      <TabsContent value="draft">
+        <Card x-chunk="dashboard-06-chunk-0">
+          <CardHeader>
+            <CardTitle>Forms</CardTitle>
+            <CardDescription>
+              Manage your forms and view their status.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="hidden md:table-cell p-0">
+                    Filled by (users)
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Created at
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Form Link
+                  </TableHead>
+
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {myForm
+                  .filter((form) => !form.status)
+                  .map((form) => (
+                    <TableRow>
+                      <TableCell className="font-medium">
+                        {form.formName}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">
+                          {form.status ? "Active" : "Draft"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {form?.users?.length}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {form.createdAt}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        <ShareLink link={form?.link} />
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              aria-haspopup="true"
+                              size="icon"
+                              variant="ghost"
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                              onClick={() => updateStatus(form?._id)}
+                            >
+                              {form?.status ? "Inactive" : "Active"}
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              onClick={() => deleteForm(form?._id)}
+                            >
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter>
+            <div className="text-xs text-muted-foreground">
+              Showing <strong>1-10</strong> of <strong>{myForm?.length}</strong>
+              forms
+            </div>
+          </CardFooter>
+        </Card>
+      </TabsContent>
       <TabsContent value="all">
         <Card x-chunk="dashboard-06-chunk-0">
           <CardHeader>
@@ -90,14 +298,15 @@ const Forms = ({ myForm }) => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {/* here to  */}
                 {myForm.map((form) => (
                   <TableRow>
                     <TableCell className="font-medium">
                       {form.formName}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline">Active</Badge>
+                      <Badge variant="outline">
+                        {form.status ? "Active" : "Draft"}
+                      </Badge>
                     </TableCell>
                     <TableCell className="hidden md:table-cell">
                       {form?.users?.length}
@@ -122,8 +331,16 @@ const Forms = ({ myForm }) => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Inactive</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => updateStatus(form?._id)}
+                          >
+                            {form?.status ? "Inactive" : "Active"}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => deleteForm(form?._id)}
+                          >
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>

@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  orgName:{
+    type:String,
+  }
 });
 const User = mongoose.model("User", userSchema);
 export default User;
