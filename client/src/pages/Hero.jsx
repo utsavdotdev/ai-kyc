@@ -47,7 +47,7 @@ const Hero = () => {
   return (
     <div className="dark text-white">
       <main>
-        <section className="container mx-auto py-24 px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+        <section className="container mx-auto py-10 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-20x">
           <div className="space-y-6 max-w-xl">
             <h1 className="text-4xl md:text-5xl font-bold ">
               Simplify KYC with AI.
@@ -68,13 +68,14 @@ const Hero = () => {
             className="mx-auto aspect-video overflow-hidden rounded-full object-cover sm:w-[500px] lg:order-last lg:aspect-square"
           />
         </section>
-        <section className="container mx-auto py-24 px-4 md:px-6">
+        <section className="container mx-auto py-24 px-4 md:px-8">
           <div className="space-y-6 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
               Key Features
             </div>
             <h2 className="text-4xl font-bold tracking-tight">
-              User friendly KYC process with KYC master
+              User friendly KYC process with{" "}
+              <span className="text-highlight">AI-KYC</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Our platform empowers you to verify your users easily with AI

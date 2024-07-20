@@ -17,23 +17,23 @@ import { Button } from "@/components/ui/button";
 const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
-  // useEffect(async () => {
-  //   const currentUrl = window.location.href;
-  //   const match = currentUrl.match(/org-(.*)/);
-  //   let extractedPart = "";
-  //   if (match && match[1]) {
-  //     extractedPart = match[1];
-  //     console.log("Extracted Part:", extractedPart);
-  //   } else {
-  //     console.log("No match found.");
-  //   }
-  //   try {
-  //     const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
-  //   } catch (error) {
-  //     console.log(error);
-  //     window.location.replace("/");
-  //   }
-  // }, []);
+  useEffect(async () => {
+    const currentUrl = window.location.href;
+    const match = currentUrl.match(/org-(.*)/);
+    let extractedPart = "";
+    if (match && match[1]) {
+      extractedPart = match[1];
+      console.log("Extracted Part:", extractedPart);
+    } else {
+      console.log("No match found.");
+    }
+    try {
+      const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
+    } catch (error) {
+      console.log(error);
+      window.location.replace("/");
+    }
+  }, []);
 
   const role = localStorage.getItem("role");
   const access = localStorage.getItem("accessToken");
@@ -238,7 +238,7 @@ const FillForm = () => {
     <>
       {isLogin ? (
         <>
-          <div className="flex justify-end p-4 text-md">
+          <div className="flex justify-end p-3 text-md">
             <div className="flex px-6 py-2 gap-4 border-2 rounded-full items-center">
               {userData?.username}
               <div
@@ -249,7 +249,7 @@ const FillForm = () => {
               </div>
             </div>
           </div>
-          <div style={{ marginTop: "100px" }}>
+          <div style={{ marginTop: "50px" }}>
             <StepIndicator currentStep={step} />
           </div>
           <div className="app">{renderStep()}</div>{" "}

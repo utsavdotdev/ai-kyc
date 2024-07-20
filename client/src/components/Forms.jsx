@@ -31,7 +31,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateForm from "./CreateForm";
 import ShareLink from "./ShareLink";
-const Forms = ({myForm}) => {
+const Forms = ({ myForm }) => {
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">
@@ -77,7 +77,7 @@ const Forms = ({myForm}) => {
                   <TableHead>Name</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="hidden md:table-cell p-0">
-                    Total Users
+                    Filled by (users)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Created at
@@ -135,7 +135,8 @@ const Forms = ({myForm}) => {
           </CardContent>
           <CardFooter>
             <div className="text-xs text-muted-foreground">
-              Showing <strong>1-10</strong> of <strong>32</strong> products
+              Showing <strong>1-10</strong> of <strong>{myForm?.length}</strong>
+              forms
             </div>
           </CardFooter>
         </Card>
