@@ -4,8 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import axios from "../config/axios.js";
 import toast from "react-hot-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 const Review = ({ formData, prevStep, images, id }) => {
   const [loading, setLoading] = useState(false);
+  const [isDialog, setisDialog] = useState(false);
   const currentUrl = window.location.href;
 
   const handleSubmit = async () => {
@@ -41,9 +52,8 @@ const Review = ({ formData, prevStep, images, id }) => {
         toast.success(
           "KYC data received and saved successfully. Wait for Verification on Email."
         );
-        window.location.reload();
-        window.location.replace("/");
-        localStorage.removeItem("formData");
+        console.log("Response:", response);
+        setisDialog(true);
       }
     } catch (error) {
       console.error("Error submitting KYC data:", error);
@@ -51,9 +61,32 @@ const Review = ({ formData, prevStep, images, id }) => {
       setLoading(false);
     }
   };
-
+  const handleDialog = () => {
+    setisDialog(false);
+    window.location.reload();
+    window.location.replace("/");
+    localStorage.removeItem("formData");
+  };
   return (
     <>
+      <Dialog open={open}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>We recieved your Details for KYC ✅</DialogTitle>
+
+            <DialogDescription style={{ paddingTop: "10px" }}>
+              Your details have been submitted successfully. Please check your
+              email at <b>{formData.email}</b> for updates on the status of your
+              KYC verification.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter style={{ paddingTop: "5px" }}>
+            <Button onClick={handleDialog}>Okay</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <div className="grid w-full max-w-md items-center gap-3">
         <span className="form_heading ">Review</span>
         <div className="flex gap-3">

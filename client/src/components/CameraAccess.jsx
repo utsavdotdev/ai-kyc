@@ -215,6 +215,7 @@ const CameraAccess = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            paddingBottom: "20px",
           }}
           className="controller"
         >
