@@ -69,7 +69,7 @@ const Review = ({ formData, prevStep, images, id }) => {
   };
   return (
     <>
-      <Dialog open={open}>
+      <Dialog open={isDialog}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>We recieved your Details for KYC ✅</DialogTitle>

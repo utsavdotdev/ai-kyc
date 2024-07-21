@@ -19,7 +19,8 @@ const STORAGE_KEY = "formData"; // Key for local storage
 const FillForm = () => {
   useEffect(async () => {
     const currentUrl = window.location.href;
-    const match = currentUrl.match(/org-(.*)/);
+    const match = currentUrl.match(/-([^\/]*)$/);
+
     let extractedPart = "";
     if (match && match[1]) {
       extractedPart = match[1];
@@ -29,6 +30,7 @@ const FillForm = () => {
     }
     try {
       const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
+      console.log(res);
     } catch (error) {
       console.log(error);
       window.location.replace("/");

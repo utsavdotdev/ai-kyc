@@ -124,7 +124,11 @@ const Analytics = () => {
                 <div className="flex items-center gap-4" key={index}>
                   <Avatar className="hidden h-9 w-9 sm:flex">
                     <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                    <AvatarFallback>OM</AvatarFallback>
+                    <AvatarFallback>
+                      {
+                        user?.name.split(" ").map((name) => name[0])
+                      }
+                    </AvatarFallback>
                   </Avatar>
                   <div className="grid gap-1">
                     <p className="text-sm font-medium leading-none">
