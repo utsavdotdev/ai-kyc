@@ -10,7 +10,6 @@ export const submitKYC = async (req, res) => {
     }
     // save data to the filledUser schema
     const filledUserData = new FilledUser({
-      userId: req.body.userId,
       formId: form._id,
       status: "pending",
       accuracy: "",

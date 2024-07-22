@@ -18,17 +18,14 @@ const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
   let currentUrl = window.location.href;
+
   useEffect(async () => {
-    const match = currentUrl.match(/org-(.*)/);
-    let extractedPart = "";
-    if (match && match[1]) {
-      extractedPart = match[1];
-      console.log("Extracted Part:", extractedPart);
-    } else {
-      console.log("No match found.");
-    }
+    const parts = currentUrl.split("/");
+    const idPart = parts[parts.length - 1];
+    const id = idPart.split("-")[1];
     try {
-      const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
+      const res = await myaxios.post(`/form/checkUrl`, { id: id });
+      console.log(res);
     } catch (error) {
       console.log(error);
       window.location.replace("/");

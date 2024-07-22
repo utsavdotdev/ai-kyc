@@ -41,7 +41,7 @@ const CreateForm = () => {
       if (res) {
         setLoading(false);
         toast.success("Form Created");
-        // clear the form
+
         setFinalData({
           formName: "",
           orgName: "",
@@ -58,7 +58,11 @@ const CreateForm = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" className="h-8 gap-1">
+        <Button
+          style={{ cursor: loading ? "not-allowed" : "pointer" }}
+          size="sm"
+          className="h-8 gap-1"
+        >
           <PlusIcon className="h-3.5 w-3.5" />{" "}
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
             Create Form

@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
 const filledUserSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-  },
   formId: {
     type: String,
   },
