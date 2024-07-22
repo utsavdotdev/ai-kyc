@@ -63,3 +63,4 @@ export const submitKYC = async (req, res) => {
     res.status(500).json({ message: "Error processing KYC data" });
   }
 };
+

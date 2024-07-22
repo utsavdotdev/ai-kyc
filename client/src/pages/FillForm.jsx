@@ -19,18 +19,19 @@ const STORAGE_KEY = "formData"; // Key for local storage
 const FillForm = () => {
   let currentUrl = window.location.href;
 
-  useEffect(async () => {
-    const parts = currentUrl.split("/");
-    const idPart = parts[parts.length - 1];
-    const id = idPart.split("-")[1];
-    try {
-      const res = await myaxios.post(`/form/checkUrl`, { id: id });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-      window.location.replace("/");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   const parts = currentUrl.split("/");
+  //   const idPart = parts[parts.length - 1];
+  //   const id = idPart.split("-")[1];
+  //   console.log(id);
+  //   try {
+  //     const res = await myaxios.post(`/form/checkUrl`, { id: id });
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //     // window.location.replace("/");
+  //   }
+  // }, []);
 
   const role = localStorage.getItem("role");
   const access = localStorage.getItem("accessToken");
@@ -267,8 +268,7 @@ const FillForm = () => {
               padding: "10px",
             }}
           >
-            Please Login to Fill the KYC Form of{" "}
-            {currentUrl?.split("/")[4]?.split("-")[0]}.
+            Please Login to Fill the KYC Form.
           </h1>
           <Button
             style={{

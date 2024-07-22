@@ -45,8 +45,7 @@ export const checkURL = async (req, res) => {
 
   try {
     const form = await Form.find({ _id: id });
-
-    console.log("form", form);
+    console.log(form);
     if (!form) {
       return res.status(404).json({ message: "Form not found" });
     } else {
@@ -117,35 +116,36 @@ export const getInsights = async (req, res) => {
       });
     });
     let latestUsers = [];
-    forms.forEach((form) => {
-      form.users.forEach(async (user) => {
-        const filledUser = await FilledUser.find({ userId: user });
-        if (filledUser.length > 0) {
-          latestUsers.push({
-            name:
-              filledUser[0].details.personalDetail.firstName +
-              " " +
-              filledUser[0].details.personalDetail.lastName,
-            status: filledUser[0].status,
-            email: filledUser[0].details.personalDetail.email,
-          });
-        }
+    const userPromises = forms.flatMap((form) =>
+      form.users.map(async (user) => {
+        const filledUser = await FilledUser.find({ _id: user });
+        return {
+          name:
+            filledUser[0].details.personalDetail.firstName +
+            " " +
+            filledUser[0].details.personalDetail.lastName,
+          status: filledUser[0].status,
+          email: filledUser[0].details.personalDetail.email,
+        };
+      })
+    );
+
+    Promise.all(userPromises).then((filledUsers) => {
+      latestUsers = filledUsers.slice(0, 5);
+      const insights = {
+        formCount,
+        activeForms,
+        inactiveForms,
+        userCount,
+        verifiedUsers,
+        rejectedUsers,
+        latestUsers,
+      };
+
+      res.status(200).json({
+        message: "Insights fetched",
+        insights,
       });
-    });
-
-    const insights = {
-      formCount,
-      activeForms,
-      inactiveForms,
-      userCount,
-      verifiedUsers,
-      rejectedUsers,
-      latestUsers,
-    };
-
-    res.status(200).json({
-      message: "Insights fetched",
-      insights,
     });
   } catch (error) {
     res.status(404).json({ message: error.message });
