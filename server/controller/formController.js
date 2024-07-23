@@ -1,6 +1,6 @@
 import Form from "../model/form.schema.js";
 import FilledUser from "../model/filleduser.schema.js";
-import { nanoid } from "nanoid";
+import mongoose from "mongoose";
 
 export const createForm = async (req, res) => {
   const { formName, orgName, userId } = req.body;
@@ -8,7 +8,7 @@ export const createForm = async (req, res) => {
   const newForm = new Form({
     formName,
     orgName,
-    userId,
+    createdBy: userId,
   });
   try {
     const uniqueLink =
@@ -29,11 +29,11 @@ export const createForm = async (req, res) => {
 };
 
 export const getForms = async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.params; // find the forms of the user(org)
   console.log(userId);
   try {
-    const forms = await Form.find({ userId });
-    console.log(forms);
+    const forms = await Form.find({ createdBy: userId });
+
     res.status(200).json(forms);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -90,7 +90,7 @@ export const deleteForm = async (req, res) => {
 
 export const getInsights = async (req, res) => {
   const { userId } = req.params;
-  const forms = await Form.find({ userId: userId });
+  const forms = await Form.find({ createdBy: userId });
   try {
     const formCount = forms.length;
     const activeForms = forms.filter((form) => form.status === true).length;
@@ -103,6 +103,7 @@ export const getInsights = async (req, res) => {
 
     let verifiedUsers = 0;
     let rejectedUsers = 0;
+
     forms.forEach((form) => {
       form.users.forEach(async (user) => {
         const filledUser = await FilledUser.find({ _id: user });
@@ -122,14 +123,14 @@ export const getInsights = async (req, res) => {
             filledUser[0].details.personalDetail.firstName +
             " " +
             filledUser[0].details.personalDetail.lastName,
-          status: filledUser[0].status, 
+          status: filledUser[0].status,
           email: filledUser[0].details.personalDetail.email,
         };
       })
     );
 
     Promise.all(userPromises).then((filledUsers) => {
-      latestUsers = filledUsers.slice(0, 5); 
+      latestUsers = filledUsers.slice(0, 5);
       const insights = {
         formCount,
         activeForms,
@@ -145,7 +146,6 @@ export const getInsights = async (req, res) => {
         insights,
       });
     });
-   
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

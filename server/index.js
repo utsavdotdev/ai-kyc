@@ -26,9 +26,10 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 
 // Serve static files
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// generate the link of the file to be served to frontend
 
 // Connect to the database
 connectDB();

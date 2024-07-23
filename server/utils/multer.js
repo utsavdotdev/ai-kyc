@@ -3,8 +3,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // Convert file URL to path
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Configure multer for file handling
 const storage = multer.diskStorage({

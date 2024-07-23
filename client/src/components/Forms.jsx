@@ -33,8 +33,10 @@ import CreateForm from "./CreateForm";
 import ShareLink from "./ShareLink";
 import axios from "../config/axios";
 import toast from "react-hot-toast";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Forms = ({ myForm }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const deleteForm = async (formId) => {
     try {
@@ -123,52 +125,59 @@ const Forms = ({ myForm }) => {
                 {myForm
                   .filter((form) => form.status)
                   .map((form) => (
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        {form.formName}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">
-                          {form.status ? "Active" : "Draft"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        {form?.users?.length}
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        {form.createdAt}
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        <ShareLink link={form?.link} />
-                      </TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              aria-haspopup="true"
-                              size="icon"
-                              variant="ghost"
-                            >
-                              <MoreHorizontal className="h-4 w-4" />
-                              <span className="sr-only">Toggle menu</span>
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem
-                              onClick={() => updateStatus(form?._id)}
-                            >
-                              {form?.status ? "Inactive" : "Active"}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={() => deleteForm(form?._id)}
-                            >
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
+                    <>
+                      <TableRow>
+                        <TableCell
+                          onClick={() => {
+                            navigate(`/form/${form._id}`);
+                          }}
+                          className="font-medium"
+                        >
+                          {form.formName}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">
+                            {form.status ? "Active" : "Draft"}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {form?.users?.length}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          {form.createdAt}
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          <ShareLink link={form?.link} />
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem
+                                onClick={() => updateStatus(form?._id)}
+                              >
+                                {form?.status ? "Inactive" : "Active"}
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => deleteForm(form?._id)}
+                              >
+                                Delete
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    </>
                   ))}
               </TableBody>
             </Table>
@@ -213,7 +222,12 @@ const Forms = ({ myForm }) => {
                   .filter((form) => !form.status)
                   .map((form) => (
                     <TableRow>
-                      <TableCell className="font-medium">
+                      <TableCell
+                        onClick={() => {
+                          navigate(`/form/${form._id}`);
+                        }}
+                        className="font-medium"
+                      >
                         {form.formName}
                       </TableCell>
                       <TableCell>
@@ -300,7 +314,12 @@ const Forms = ({ myForm }) => {
               <TableBody>
                 {myForm.map((form) => (
                   <TableRow>
-                    <TableCell className="font-medium">
+                    <TableCell
+                      onClick={() => {
+                        navigate(`/form/${form._id}`);
+                      }}
+                      className="font-medium"
+                    >
                       {form.formName}
                     </TableCell>
                     <TableCell>

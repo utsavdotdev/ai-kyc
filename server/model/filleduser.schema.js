@@ -1,9 +1,7 @@
+import moment from "moment";
 import mongoose from "mongoose";
 
 const filledUserSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-  },
   formId: {
     type: String,
   },
@@ -61,8 +59,8 @@ const filledUserSchema = new mongoose.Schema({
     },
   },
   createdAt: {
-    type: Date,
-    default: new Date(),
+    type: String,
+    default: moment().format("MMM Do YY"),
   },
 });
 const FilledUser = mongoose.model("FilledUser", filledUserSchema);

@@ -17,25 +17,21 @@ import { Button } from "@/components/ui/button";
 const STORAGE_KEY = "formData"; // Key for local storage
 
 const FillForm = () => {
-  useEffect(async () => {
-    const currentUrl = window.location.href;
-    const match = currentUrl.match(/-([^\/]*)$/);
+  let currentUrl = window.location.href;
 
-    let extractedPart = "";
-    if (match && match[1]) {
-      extractedPart = match[1];
-      console.log("Extracted Part:", extractedPart);
-    } else {
-      console.log("No match found.");
-    }
-    try {
-      const res = await myaxios.post(`/form/checkUrl`, { id: extractedPart });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-      window.location.replace("/");
-    }
-  }, []);
+  // useEffect(async () => {
+  //   const parts = currentUrl.split("/");
+  //   const idPart = parts[parts.length - 1];
+  //   const id = idPart.split("-")[1];
+  //   console.log(id);
+  //   try {
+  //     const res = await myaxios.post(`/form/checkUrl`, { id: id });
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //     // window.location.replace("/");
+  //   }
+  // }, []);
 
   const role = localStorage.getItem("role");
   const access = localStorage.getItem("accessToken");
@@ -272,7 +268,7 @@ const FillForm = () => {
               padding: "10px",
             }}
           >
-            Please Login to Fill the KYC Form of Esewa.
+            Please Login to Fill the KYC Form.
           </h1>
           <Button
             style={{
