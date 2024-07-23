@@ -96,7 +96,6 @@ export const getInsights = async (req, res) => {
     const activeForms = forms.filter((form) => form.status === true).length;
     const inactiveForms = formCount - activeForms;
 
-    //get the no of user who have filled the form
     let userCount = 0;
     forms.forEach((form) => {
       userCount += form.users.length;
