@@ -5,7 +5,11 @@ import {
   updateUserStatus,
   updatePercentage,
   updateRemarks,
+  getFormDetails,
+  getLtsUser,
 } from "./function.js";
+import message from "./msg.js";
+import sendEmail from "./sendEmail.js";
 
 const bot = async () => {
   console.log("Bot is running...");
@@ -54,12 +58,8 @@ const bot = async () => {
           user._id,
           compareResult.similarityPercentage
         );
-        await updateRemarks(user._id, "All Good");
+        await updateRemarks(user._id, "No need to worry");
         console.log(`User ${user._id} verified`);
-
-        //send email logic
-
-        return;
       }
       if (
         !compareResult.match ||
@@ -72,24 +72,41 @@ const bot = async () => {
           user._id,
           compareResult.similarityPercentage
         );
-        let remarks = "";
+        let face = false;
+        let docs = false;
         if (!compareResult.match) {
-          await updateRemarks(user._id, "Face does not match");
-          remarks = "Face does not match";
+          face = true;
         }
         if (
           !checkDetails.name ||
           !checkDetails.country ||
           !checkDetails.passportNumber
         ) {
-          await updateRemarks(user._id, "Details does not match");
-          remarks = "Details does not match";
+          docs = true;
+        }
+        if(face && docs){
+          await updateRemarks(user._id, "Face and Document Verification Failed");
+        }
+        if(face && !docs){
+          await updateRemarks(user._id, "Face Verification Failed");
+        }
+        if(!face && docs){
+          await updateRemarks(user._id, "Document Verification Failed");
         }
         console.log(`User ${user._id} Rejected`);
-        //send email logic
-
-        return;
       }
+      //send email logic
+      const usr = await getLtsUser(user._id);
+      const form = await getFormDetails(usr.formId);
+      const html = message(usr, form.formName);
+
+      const res = await sendEmail(
+        usr.details.personalDetail.email,
+        "KYC Verification",
+        html
+      );
+      console.log(res.message);
+      return;
     });
   } catch (error) {
     console.log(error);

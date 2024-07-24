@@ -32,3 +32,14 @@ export const updateRemarks = async (id,remarks) =>{
     );
     return res;
 }
+
+export const getFormDetails = async (id) =>{
+    const form = await Form.findById(id);
+    return form;
+}
+
+
+export const getLtsUser = async (id) => {
+  const users = await FilledUser.findById(id);
+  return users;
+}
