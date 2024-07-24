@@ -37,6 +37,8 @@ export const compare = async (userImagePath, docImagePath) => {
     const userDescriptors = await getFaceDescriptors(userImagePath);
     const docDescriptors = await getFaceDescriptors(docImagePath);
 
+    
+
     if (userDescriptors.length === 0) {
       return {
         match: false,
@@ -58,7 +60,7 @@ export const compare = async (userImagePath, docImagePath) => {
     const [docDescriptor] = docDescriptors;
 
     const similarityPercentage = compareFaces(userDescriptor, docDescriptor);
-    const isMatch = similarityPercentage > 60; // Define your threshold
+    const isMatch = similarityPercentage > 30; // Define your threshold
 
     return {
       match: isMatch,
@@ -66,6 +68,7 @@ export const compare = async (userImagePath, docImagePath) => {
       remarks: isMatch ? "Faces match." : "Faces do not match.",
     };
   } catch (error) {
+    console.log("error in face",error);
     return {
       match: false,
       similarityPercentage: null,

@@ -114,6 +114,7 @@ export const getInsights = async (req, res) => {
         }
       });
     });
+
     let latestUsers = [];
     const userPromises = forms.flatMap((form) =>
       form.users.map(async (user) => {

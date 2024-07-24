@@ -36,7 +36,7 @@ const Analytics = () => {
 
   useEffect(() => {
     getInsights();
-  }, [user]);
+  }, []);
 
    const getInsights = async () => {
      try {

@@ -8,9 +8,6 @@ const filledUserSchema = new mongoose.Schema({
   status: {
     type: String,
   },
-  remarks:{
-    type: String,
-  },
   similarityPercentage: {
     type: Number,
     default: 0,
@@ -61,6 +58,9 @@ const filledUserSchema = new mongoose.Schema({
         type: String,
       },
     },
+  },
+  remarks:{
+    type: String,
   },
   createdAt: {
     type: String,

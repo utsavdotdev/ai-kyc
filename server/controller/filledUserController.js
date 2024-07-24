@@ -12,7 +12,6 @@ export const submitKYC = async (req, res) => {
     const filledUserData = new FilledUser({
       formId: form._id,
       status: "pending",
-      accuracy: "",
       details: {
         personalDetail: {
           firstName: req.body.firstName,

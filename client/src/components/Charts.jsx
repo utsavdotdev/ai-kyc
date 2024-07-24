@@ -16,6 +16,7 @@ import {
 
 
 const Charts = ({info}) => {
+    console.log(info)
     const chartData = [{ verified: info?.verifiedUsers, rejected: info?.rejectedUsers }];
 
     const chartConfig = {
