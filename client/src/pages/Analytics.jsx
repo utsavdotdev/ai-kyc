@@ -31,21 +31,40 @@ import axios from "../config/axios";
 import { ContextProvider } from "../config/Context";
 
 const Analytics = () => {
-  const [info, setInfo] = useState();
+  const [info, setInfo] = useState({
+    formCount: 4,
+    activeForms: 2,
+    inactiveForms: 2,
+    userCount: 2,
+    verifiedUsers: 1,
+    rejectedUsers: 1,
+    latestUsers: [
+      {
+        name: "Utsav Bhattarai",
+        status: "verified",
+        email: "utsavdotdev@gmail.com",
+      },
+      {
+        name: "Utsav Bhattarai",
+        status: "rejected",
+        email: "utsavdotdev@gmail.com",
+      },
+    ],
+  });
   const { user } = useContext(ContextProvider);
 
-  useEffect(() => {
-    getInsights();
-  }, []);
+  // useEffect(() => {
+  //   getInsights();
+  // }, []);
 
-   const getInsights = async () => {
-     try {
-       const res = await axios.get(`/form/getinfo/${user?._id}`);
-       setInfo(res.data.insights);
-     } catch (error) {
-       console.log(error);
-     }
-   };
+  // const getInsights = async () => {
+  //   try {
+  //     const res = await axios.get(`/form/getinfo/${user?._id}`);
+  //     setInfo(res.data.insights);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <>
       <div className="grid w-full max-w-6xl gap-2">
@@ -58,7 +77,7 @@ const Analytics = () => {
             <BookText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{info?.formCount}</div>
+            <div className="text-2xl font-bold">{/* {info?.formCount} */}4</div>
             <p className="text-xs text-muted-foreground">
               {info?.activeForms +
                 " Active & " +
@@ -73,7 +92,7 @@ const Analytics = () => {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{info?.userCount}</div>
+            <div className="text-2xl font-bold">{/* {info?.userCount} */}2</div>
           </CardContent>
         </Card>
         <Card x-chunk="dashboard-01-chunk-2">
@@ -82,7 +101,9 @@ const Analytics = () => {
             <UserRoundCheck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{info?.verifiedUsers}</div>
+            <div className="text-2xl font-bold">
+              {/* {info?.verifiedUsers} */}1
+            </div>
             <p className="text-xs text-muted-foreground"></p>
           </CardContent>
         </Card>
@@ -92,7 +113,9 @@ const Analytics = () => {
             <UserRoundX className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{info?.rejectedUsers}</div>
+            <div className="text-2xl font-bold">
+              1{/* {info?.rejectedUsers} */}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -107,7 +130,7 @@ const Analytics = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <Charts info={info}/>
+            <Charts info={info} />
           </CardContent>
         </Card>
         <Card x-chunk="dashboard-01-chunk-5">
@@ -125,9 +148,7 @@ const Analytics = () => {
                   <Avatar className="hidden h-9 w-9 sm:flex">
                     <AvatarImage src="/avatars/01.png" alt="Avatar" />
                     <AvatarFallback>
-                      {
-                        user?.name.split(" ").map((name) => name[0])
-                      }
+                      {user?.name.split(" ").map((name) => name[0])}
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid gap-1">

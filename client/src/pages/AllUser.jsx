@@ -95,6 +95,7 @@ const AllUser = () => {
                   </TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Status</TableHead>
+                  <TableHead>Similarity</TableHead>
                   {/* <TableHead className="hidden md:table-cell">Price</TableHead> */}
                   {/* <TableHead className="hidden md:table-cell">
                     Total Sales
@@ -102,6 +103,7 @@ const AllUser = () => {
                   <TableHead className="hidden md:table-cell">
                     Created at
                   </TableHead>
+                  <TableHead>Remarks</TableHead>
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -137,7 +139,13 @@ const AllUser = () => {
                           30
                         </TableCell> */}
                         <TableCell className="hidden md:table-cell">
+                          {data?.similarityPercentage || 0} %
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
                           {data?.createdAt}
+                        </TableCell>
+                        <TableCell className="font-medium lg:table-cell">
+                          {data?.remarks}
                         </TableCell>
                         <TableCell>
                           <DropdownMenu>
