@@ -1,8 +1,24 @@
-# ai-kyc
+# AI-KYC
 
+AI-KYC is a web-based application that allows organizations to create AI-KYC forms for their end users. The unique links generated can be shared with the end users, who can then fill out the form. The application utilizes machine learning algorithms to verify and reject the user submissions. 
 
-const userImagePath = path.resolve(
-    "https://cdn.discordapp.com/attachments/1050293733083594824/1215981715755892827/cropped-DSC_1772.jpg?ex=669ee878&is=669d96f8&hm=b984cdc077983a039f8885c2f70d5eeb13e4ee340bead66e1d66d73d25409f65&"
-  );
-  const documentPath =
-    "https://media.discordapp.net/attachments/1050293733083594824/1264804508572057621/citizenship_both.jpg?ex=669f347d&is=669de2fd&hm=e073b18877ed819ca10a92989bbe9de7a04569d919f9e580683c2a791fb4e1b6&=&format=webp&width=525&height=624";
+# Key Features
+- Create AI-KYC forms through the website
+- Generate unique links for end users to fill out the forms
+- Machine learning algorithm for user verification and rejection
+- Dashboard for organizations to view form submissions
+- Export form details to Excel file
+- View form statistics
+- JWT authentication for enhanced security
+
+## Contributing
+We welcome contributions from the community! If you would like to contribute to the AI-KYC project, please follow these guidelines:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

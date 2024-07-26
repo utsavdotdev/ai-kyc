@@ -107,9 +107,9 @@ export const getInsights = async (req, res) => {
     forms.forEach((form) => {
       form.users.forEach(async (user) => {
         const filledUser = await FilledUser.find({ _id: user });
-        if (filledUser[0].status === "verified") {
+        if (filledUser[0]?.status === "verified") {
           verifiedUsers++;
-        } else if (filledUser[0].status === "rejected") {
+        } else if (filledUser[0]?.status === "rejected") {
           rejectedUsers++;
         }
       });
@@ -121,11 +121,11 @@ export const getInsights = async (req, res) => {
         const filledUser = await FilledUser.find({ _id: user });
         return {
           name:
-            filledUser[0].details.personalDetail.firstName +
+            filledUser[0]?.details.personalDetail.firstName +
             " " +
-            filledUser[0].details.personalDetail.lastName,
-          status: filledUser[0].status,
-          email: filledUser[0].details.personalDetail.email,
+            filledUser[0]?.details.personalDetail.lastName,
+          status: filledUser[0]?.status,
+          email: filledUser[0]?.details.personalDetail.email,
         };
       })
     );
