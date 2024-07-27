@@ -15,12 +15,13 @@ import upload from "./utils/multer.js"; // Import multer configuration
 // Initialize express app
 const app = express();
 
+const url = process.env.CLIENT_URL
 // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: url,
   })
 );
 app.use(express.urlencoded({ extended: false }));

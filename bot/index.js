@@ -6,5 +6,5 @@ const dbConnected = await connectDB();
 if (dbConnected) {
   setInterval(() => {
     bot();
-  }, 10000);
+  }, 20000);
 }
