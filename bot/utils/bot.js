@@ -15,6 +15,7 @@ const url = process.env.SERVER_URL;
 
 const bot = async () => {
   console.log("Bot is running...");
+  console.log(url);
   try {
     const users = await getUser();
     if (users.length === 0) {
