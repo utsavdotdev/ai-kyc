@@ -2,6 +2,7 @@ import Form from "../model/form.schema.js";
 import FilledUser from "../model/filleduser.schema.js";
 import mongoose from "mongoose";
 
+const url = process.env.CLIENT_URL;
 export const createForm = async (req, res) => {
   const { formName, orgName, userId } = req.body;
 
@@ -12,7 +13,7 @@ export const createForm = async (req, res) => {
   });
   try {
     const uniqueLink =
-      `http://localhost:5173/userform/${formName}-${newForm._id}`
+      `${url}/userform/${formName}-${newForm._id}`
         .toLowerCase()
         .replace(/\s+/g, "-");
 
