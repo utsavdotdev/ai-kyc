@@ -121,7 +121,7 @@ const AllUser = () => {
                             alt="imgs"
                             className="aspect-square rounded-md object-cover"
                             height="80"
-                            src={`http://localhost:3000/${data?.details?.images?.face}`}
+                            src={`https://aikyc-api.onrender.com/${data?.details?.images?.face}`}
                             width="80"
                           />
                         </TableCell>

@@ -11,6 +11,8 @@ import {
 import message from "./msg.js";
 import sendEmail from "./sendEmail.js";
 
+const url = process.env.CLIENT_URL;
+
 const bot = async () => {
   console.log("Bot is running...");
   try {
@@ -21,11 +23,11 @@ const bot = async () => {
     }
     users.map(async (user) => {
       const compareResult = await compare(
-        `http://localhost:3000/${user.details.images.face}`,
-        `http://localhost:3000/${user.details.images.passport}`
+        `${url}/${user.details.images.face}`,
+        `${url}/${user.details.images.passport}`
       );
       const docsResult = await extractText(
-        `http://localhost:3000/${user.details.images.passport}`,
+        `${url}/${user.details.images.passport}`,
         "image/all"
       );
 
