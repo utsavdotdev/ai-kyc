@@ -11,10 +11,11 @@ import {
 import message from "./msg.js";
 import sendEmail from "./sendEmail.js";
 
-const url = process.env.CLIENT_URL;
+const url = process.env.SERVER_URL;
 
 const bot = async () => {
   console.log("Bot is running...");
+  console.log(url);
   try {
     const users = await getUser();
     if (users.length === 0) {
